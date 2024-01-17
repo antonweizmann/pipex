@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/17 10:40:33 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/01/17 13:59:09 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*get_env(char **envp)
 {
-	int	i;
-	int	j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
 	while (envp[i])
@@ -35,7 +35,7 @@ char	*get_env(char **envp)
 		free(tmp);
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 char	*get_path(char *cmd, char **envp)
@@ -64,6 +64,7 @@ char	*get_path(char *cmd, char **envp)
 	}
 	return (NULL);
 }
+
 void	free_array(char **arr)
 {
 	int	i;

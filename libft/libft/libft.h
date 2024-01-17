@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:53 by aweizman          #+#    #+#             */
-/*   Updated: 2023/12/15 02:29:17 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/01/17 13:56:50 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,5 @@ void	ft_lstdelone(t_stack *lst);
 void	ft_lstclear(t_stack **lst);
 
 void	ft_lstiter(t_stack *lst, void (*f)(int));
-
 
 #endif
