@@ -6,7 +6,7 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/23 13:48:48 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:58:15 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char	*get_path(char *cmd, char **envp)
 
 	cmd_path = ft_split(get_env(envp), ':');
 	path_to_cmd = ft_strjoin("/", cmd);
-	// if (!cmd_path || !path_to_cmd)
+	// if (
 	// 	error();
 	i = 0;
-	while (cmd_path[i])
+	while (!cmd_path || !path_to_cmd || cmd_path[i])
 	{
 		trial_path = ft_strjoin(cmd_path[i], path_to_cmd);
 		if (access(trial_path, F_OK | X_OK) == 0)
@@ -62,17 +62,10 @@ char	*get_path(char *cmd, char **envp)
 		free(trial_path);
 		i++;
 	}
+	// if
+	free(path_to_cmd);
+	free_array(cmd_path);
 	return (NULL);
-}
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
 }
 
 void	error_msg(char *err)
@@ -81,7 +74,7 @@ void	error_msg(char *err)
 	exit(1);
 }
 
-int		msg(char *err)
+int	msg(char *err)
 {
 	write(2, err, ft_strlen(err));
 	return (1);

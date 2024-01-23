@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+         #
+#    By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 16:57:44 by aweizman          #+#    #+#              #
-#    Updated: 2024/01/17 10:49:41 by antonweizma      ###   ########.fr        #
+#    Updated: 2024/01/23 14:46:42 by aweizman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
