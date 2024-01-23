@@ -6,7 +6,7 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/17 13:59:09 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/01/23 13:48:48 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,16 @@ void	free_array(char **arr)
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);
+}
 
+void	error_msg(char *err)
+{
+	perror(err);
+	exit(1);
+}
+
+int		msg(char *err)
+{
+	write(2, err, ft_strlen(err));
+	return (1);
 }
