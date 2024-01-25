@@ -6,7 +6,7 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:20:05 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/25 15:46:41 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:57:49 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_array(char **arr);
 char	*get_path(char *cmd, char **envp);
 void	error_msg(char *err, t_args *args);
 int		msg(char *err);
-void	exec(char *cmd, t_args *args);
+void	exec(char *cmd);
 void	fork_tree(int *pre_fd, t_args *args, int commands);
 void	parent(t_args *args, int *fd);
 void	child(t_args *args, int *fd, int *pre_fd, int cmd);
