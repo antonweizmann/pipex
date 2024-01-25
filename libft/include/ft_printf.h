@@ -6,7 +6,7 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 12:12:14 by aweizman          #+#    #+#             */
-/*   Updated: 2023/12/07 18:11:07 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:43:04 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 
 typedef struct s_printf
 {

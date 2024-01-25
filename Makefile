@@ -6,26 +6,34 @@
 #    By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 16:57:44 by aweizman          #+#    #+#              #
-#    Updated: 2024/01/23 14:46:42 by aweizman         ###   ########.fr        #
+#    Updated: 2024/01/25 17:03:33 by aweizman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= pipex
+NAME		= pipex
 
-LIBFT	= ./libft
+NAME_BONUS	= pipex_bonus
 
-CC		= cc
+LIBFT		= ./libft
 
-CFLAGS	= -Wall -Wextra -Werror
+CC			= cc
 
-HEADERS = -I./pipex.h -I$(LIBFT)/include/ft_printf.h
+CFLAGS		= -Wall -Wextra -Werror
 
-SRCS	= main utils
+HEADERS		= -I./pipex.h -I$(LIBFT)/include/ft_printf.h
+
+SRCS		= main utils fork
+
+SRCS_BONUS 	= main_bonus utils_bonus fork_bonus
 
 OBJ_DIR		= obj/
-SRC		= 	$(addsuffix .c, $(SRCS))
-OBJ 	= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS)))
-OBJ_CHECK		=	.cache_exists
+SRC			= 	$(addsuffix .c, $(SRCS))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS)))
+SRC_BONUS	= 	$(addsuffix .c, $(SRCS_BONUS))
+OBJ_BONUS 	= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS_BONUS)))
+OBJ_CHECK	=	.cache_exists
+
+
 all : $(NAME)
 
 $(NAME): $(SRC) $(LIBFT)/libftprintf.a $(OBJ)
@@ -49,6 +57,11 @@ fclean: clean
 	@echo "full cleaning up..."
 	@make fclean -C $(LIBFT)
 	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
+
+bonus:	$(SRC_BONUS) $(LIBFT)/libftprintf.a $(OBJ_BONUS)
+	@echo "compiling pipex bonus.."
+	@$(CC) $(CFLAGS) -o $(NAME_BONUS) $(SRC_BONUS) $(LIBFT)/libftprintf.a $(HEADERS)
 
 re: fclean all
 
