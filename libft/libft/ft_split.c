@@ -90,7 +90,7 @@
 // 		return (free_split(split));
 // 	return (split);
 // }
-char **split(char const *s, char c)
+char **ft_split(char const *s, char c)
 {
 	static int	iteration = 0;
 	int			lettercount;
@@ -117,11 +117,4 @@ char **split(char const *s, char c)
 	else
 		split_words = ft_calloc((iteration + 1), sizeof(char *));
 	return (split_words);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	if (!*s || !s)
-		return (NULL);
-	return (split(s, c));
 }

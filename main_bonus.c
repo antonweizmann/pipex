@@ -44,7 +44,7 @@ void	here_doc(t_args *args)
 	{
 		str = get_next_line(STDIN_FILENO);
 
-		if (str || *str)
+		if (str && *str)
 		{
 			if (!ft_strncmp(str, args->argv[2], ft_strlen(args->argv[2]))
 				&& !ft_strncmp(str, args->argv[2], ft_strlen(str) - 1))
@@ -86,9 +86,9 @@ int	main(int argc, char **argv)
 			here_doc(args);
 		}
 		fork_tree(NULL, args, 1);
+        free(args);
 	}
 	else
 		return (msg("Invalid Number of Arguments\n"));
-	free(args);
 	return (0);
 }

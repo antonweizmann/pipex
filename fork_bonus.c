@@ -31,8 +31,8 @@ void	initiate_child(t_args *args, int *pre_fd)
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
+    close(pre_fd[0]);
 	dup2(pre_fd[1], STDOUT_FILENO);
-	close(pre_fd[0]);
 	close(pre_fd[1]);
 	exec(args->argv[2 + args->here_doc]);
 }
@@ -88,5 +88,8 @@ void	fork_tree(int *pre_fd, t_args *args, int commands)
 			child(args, fd, pre_fd, commands);
 	}
 	else if (commands == args->argc - 3 - args->here_doc)
-		initiate_child(args, pre_fd);
+    {
+        initiate_child(args, pre_fd);
+    }
+
 }

@@ -48,7 +48,7 @@ char	*get_path(char *cmd, char **envp)
 	cmd_path = ft_split(get_env(envp), ':');
 	path_to_cmd = ft_strjoin("/", cmd);
 	i = 0;
-	while (!cmd_path || !path_to_cmd || cmd_path[i])
+	while (cmd_path && path_to_cmd && cmd_path[i])
 	{
 		trial_path = ft_strjoin(cmd_path[i], path_to_cmd);
 		if (access(trial_path, F_OK | X_OK) == 0)
@@ -71,7 +71,7 @@ void	error_msg(char *err, t_args *args)
 {
 	perror(err);
 	free(args);
-	exit(1);
+    exit(1);
 }
 
 int	msg(char *err)

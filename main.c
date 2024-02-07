@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/25 17:13:31 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:13:24 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	exec(char *cmd, t_args *args)
+void	exec(char *cmd)
 {
 	char		*cmd_path;
 	char		**cmd_arg;
@@ -31,13 +31,7 @@ void	exec(char *cmd, t_args *args)
 	cmd_arg = ft_split(cmd, ' ');
 	cmd_path = get_path(cmd_arg[0], environ);
 	if (execve(cmd_path, cmd_arg, environ) == -1)
-	{
-		free(cmd_path);
-		free_array(cmd_arg);
-		error_msg("Command not found\n", args);
-	}
-	free(cmd_path);
-	free_array(cmd_arg);
+		perror("Command not found\n");
 }
 
 void	here_doc(t_args *args)
@@ -45,18 +39,22 @@ void	here_doc(t_args *args)
 	char	*str;
 
 	if (pipe(args->here_doc_pipe) == -1)
-		error_msg("Pipe", args);
+		perror("Pipe");
 	while (1)
 	{
 		str = get_next_line(STDIN_FILENO);
-		if (!ft_strcmp(str, args->argv[2])
-			&& !ft_strncmp(str, args->argv[2], ft_strlen(str) - 1))
+
+		if (str && *str)
 		{
+			if (!ft_strncmp(str, args->argv[2], ft_strlen(args->argv[2]))
+				&& !ft_strncmp(str, args->argv[2], ft_strlen(str) - 1))
+			{
+				free(str);
+				break ;
+			}
+			write(args->here_doc_pipe[1], str, ft_strlen(str));
 			free(str);
-			break ;
 		}
-		write(args->here_doc_pipe[1], str, ft_strlen(str));
-		free(str);
 	}
 	close(args->here_doc_pipe[1]);
 }
@@ -65,7 +63,7 @@ void	init_args(t_args *args, char **argv, int argc)
 {
 	args->argv = argv;
 	args->argc = argc;
-	if (!ft_strcmp(argv[1], "here_doc"))
+	if (!ft_strncmp(argv[1], "here_doc", 9))
 		args->here_doc = 1;
 	else
 		args->here_doc = 0;
@@ -88,6 +86,7 @@ int	main(int argc, char **argv)
 			here_doc(args);
 		}
 		fork_tree(NULL, args, 1);
+        free(args);
 	}
 	else
 		return (msg("Invalid Number of Arguments\n"));
