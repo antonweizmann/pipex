@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/25 16:31:31 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:18:26 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	error_msg(char *err, t_args *args)
 {
 	perror(err);
 	free(args);
-    exit(1);
+	exit(1);
 }
 
 int	msg(char *err)

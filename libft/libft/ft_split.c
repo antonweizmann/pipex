@@ -90,7 +90,7 @@
 // 		return (free_split(split));
 // 	return (split);
 // }
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	static int	iteration = 0;
 	int			lettercount;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:08:09 by aweizman          #+#    #+#             */
-/*   Updated: 2024/01/25 20:10:23 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:17:55 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,5 @@ char	*get_next_line(int fd)
 	bytes_read = get_line_len(line);
 	res = get_result(line, bytes_read);
 	line = new_line(line, bytes_read);
-
 	return (res);
 }

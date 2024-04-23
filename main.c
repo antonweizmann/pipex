@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/01/25 20:13:24 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:44:11 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	exec(char *cmd)
 
 	cmd_arg = ft_split(cmd, ' ');
 	cmd_path = get_path(cmd_arg[0], environ);
-	if (execve(cmd_path, cmd_arg, environ) == -1)
-		perror("Command not found\n");
+	execve(cmd_path, cmd_arg, environ);
+	perror("Command not found\n");
+	exit(1);
 }
 
 void	here_doc(t_args *args)
@@ -43,7 +44,6 @@ void	here_doc(t_args *args)
 	while (1)
 	{
 		str = get_next_line(STDIN_FILENO);
-
 		if (str && *str)
 		{
 			if (!ft_strncmp(str, args->argv[2], ft_strlen(args->argv[2]))
@@ -85,8 +85,8 @@ int	main(int argc, char **argv)
 				error_msg("here_doc: Wrong Number of Arguments", args);
 			here_doc(args);
 		}
-		fork_tree(NULL, args, 1);
-        free(args);
+		start_pipe(NULL, args, 1);
+		free(args);
 	}
 	else
 		return (msg("Invalid Number of Arguments\n"));
