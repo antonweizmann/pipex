@@ -6,13 +6,13 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/23 11:57:34 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/23 12:33:26 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	initiate_child(t_args *args, int *pre_fd, int *fd)
+void	initiate_child(t_args *args, int *fd, int *pre_fd)
 {
 	int	file;
 
@@ -34,23 +34,23 @@ void	initiate_child(t_args *args, int *pre_fd, int *fd)
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-	close_pipes(fd);
-	close(pre_fd[0]);
-	dup2(pre_fd[1], STDOUT_FILENO);
-	close(pre_fd[1]);
+	close_pipes(pre_fd);
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
 	exec(args->argv[2 + args->here_doc]);
 }
 
-void	child(t_args *args, int *fd, int *pre_fd, int cmd)
+void	child(t_args *args, int *pre_fd, int *fd, int cmd)
 {
-	dup2(fd[0], STDIN_FILENO);
-	dup2(pre_fd[1], STDOUT_FILENO);
-	close_pipes(fd);
+	dup2(pre_fd[0], STDIN_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
 	close_pipes(pre_fd);
+	close_pipes(fd);
 	exec(args->argv[args->argc - 1 - cmd]);
 }
 
-void	parent(t_args *args, int *fd, int *pre_fd)
+void	parent(t_args *args, int *pre_fd, int *fd)
 {
 	int	file;
 
@@ -65,11 +65,10 @@ void	parent(t_args *args, int *fd, int *pre_fd)
 		perror("Outfile");
 		exit(EXIT_FAILURE);
 	}
-	close_pipes(pre_fd);
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
+	dup2(pre_fd[0], STDIN_FILENO);
 	dup2(file, STDOUT_FILENO);
-	close(fd[0]);
+	close_pipes(fd);
+	close_pipes(pre_fd);
 	close(file);
 	exec(args->argv[args->argc - 2]);
 }
@@ -103,10 +102,13 @@ void	fork_tree(int *pre_fd, t_args *args, int commands, int *status)
 			child(args, pre_fd, fd, commands);
 	}
 	else if (pid && commands < args->argc - 3 - args->here_doc)
+	{
+		close_pipes(pre_fd);
 		fork_tree(fd, args, commands + 1, status);
+	}
 	else if (!pid && commands == args->argc - 3 - args->here_doc)
 		parent(args, pre_fd, fd);
-	close_pipes(fd);
 	close_pipes(pre_fd);
+	close_pipes(fd);
 	waitpid(pid, status, 0);
 }
