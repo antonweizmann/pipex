@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/27 20:10:53 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 20:21:57 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	initiate_child(t_args *args, int *fd, int *pre_fd)
 		if (file == -1)
 		{
 			perror("Infile");
-			exit(EXIT_FAILURE);
 		}
 		dup2(file, STDIN_FILENO);
 		close(file);
@@ -62,7 +61,6 @@ void	parent(t_args *args, int *pre_fd, int *fd)
 	if (file == -1)
 	{
 		perror("Outfile");
-		exit(EXIT_FAILURE);
 	}
 	dup2(pre_fd[0], STDIN_FILENO);
 	dup2(file, STDOUT_FILENO);
