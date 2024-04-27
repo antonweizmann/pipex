@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/27 18:27:22 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 20:11:10 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	exec(char *cmd)
+void	exec(char *cmd, t_args *args)
 {
 	char		*cmd_path;
 	char		**cmd_arg;
@@ -30,8 +30,13 @@ void	exec(char *cmd)
 
 	cmd_arg = ft_split(cmd, ' ');
 	cmd_path = get_path(cmd_arg[0], environ);
+	if (!cmd_path)
+		free_array(cmd_arg);
 	execve(cmd_path, cmd_arg, environ);
 	perror("Command not found\n");
+	free(cmd_arg);
+	free(cmd_path);
+	free(args);
 	exit(1);
 }
 

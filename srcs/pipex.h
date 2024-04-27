@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:20:05 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/27 17:27:09 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 20:11:29 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-
+# include <sys/wait.h>
 typedef struct s_args
 {
 	char	**argv;
@@ -31,7 +31,7 @@ void	free_array(char **arr);
 char	*get_path(char *cmd, char **envp);
 void	error_msg(char *err, t_args *args);
 int		msg(char *err);
-void	exec(char *cmd);
+void	exec(char *cmd, t_args *args);
 void	fork_tree(int *pre_fd, t_args *args, int commands, int *status);
 void	parent(t_args *args, int *fd, int *pre_fd);
 void	child(t_args *args, int *fd, int *pre_fd, int cmd);

@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/27 18:49:39 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 20:10:53 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	initiate_child(t_args *args, int *fd, int *pre_fd)
 	dup2(fd[1], STDOUT_FILENO);
 	close_pipes(pre_fd);
 	close_pipes(fd);
-	exec(args->argv[2 + args->here_doc]);
+	exec(args->argv[2 + args->here_doc], args);
 }
 
 void	child(t_args *args, int *pre_fd, int *fd, int cmd)
@@ -46,7 +46,7 @@ void	child(t_args *args, int *pre_fd, int *fd, int cmd)
 	dup2(fd[1], STDOUT_FILENO);
 	close_pipes(pre_fd);
 	close_pipes(fd);
-	exec(args->argv[args->argc - 1 - cmd]);
+	exec(args->argv[args->argc - 1 - cmd], args);
 }
 
 void	parent(t_args *args, int *pre_fd, int *fd)
@@ -69,7 +69,7 @@ void	parent(t_args *args, int *pre_fd, int *fd)
 	close_pipes(fd);
 	close_pipes(pre_fd);
 	close(file);
-	exec(args->argv[args->argc - 2]);
+	exec(args->argv[args->argc - 2], args);
 }
 
 void	start_pipe(int *pre_fd, t_args *args, int commands)
