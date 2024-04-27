@@ -6,7 +6,7 @@
 #    By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 16:57:44 by aweizman          #+#    #+#              #
-#    Updated: 2024/04/27 18:49:19 by antonweizma      ###   ########.fr        #
+#    Updated: 2024/04/27 20:18:00 by antonweizma      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror -g
 
-HEADERS		= -I./srcs/pipex.h -I$(LIBFT)/include/ft_printf.h
+HEADERS		= -I./srcs/ -I$(LIBFT)/include/
 
 SRCS		= main utils fork
 

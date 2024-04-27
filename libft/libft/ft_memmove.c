@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:01:59 by aweizman          #+#    #+#             */
-/*   Updated: 2023/10/11 14:30:16 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:17:38 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	if ((!dst && !src) || len == 0)
 		return (dst);
-	src_end = &src[len - 1];
-	dst_end = &dst[len - 1];
+	src_end = src + len - 1;
+	dst_end = dst + len - 1;
 	temp1 = dst;
 	temp2 = src;
 	if (dst >= src && dst <= src_end)
