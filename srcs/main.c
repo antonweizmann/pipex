@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/23 11:44:11 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 18:27:22 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	main(int argc, char **argv)
 			here_doc(args);
 		}
 		start_pipe(NULL, args, 1);
-		free(args);
 	}
 	else
 		return (msg("Invalid Number of Arguments\n"));

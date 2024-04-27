@@ -6,31 +6,32 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/23 11:57:39 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 17:20:48 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*get_env(char **envp)
+char	*get_env(char **environ, char *var)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	i = 0;
-	while (envp[i])
+	while (environ[i])
 	{
 		j = 0;
-		while (envp[i][j] && envp[i][j] != '=')
+		while (environ[i][j] && environ[i][j] != '=')
 			j++;
-		tmp = ft_substr(envp[i], 0, j);
+		tmp = ft_substr(environ[i], 0, j);
 		if (!tmp)
 			break ;
-		if (ft_strcmp(tmp, "PATH") == 0)
+		if (!ft_strncmp(tmp, var, ft_strlen(var))
+			&& !ft_strncmp(tmp, var, ft_strlen(tmp)))
 		{
 			free(tmp);
-			return (envp[i] + j + 1);
+			return (ft_strdup(environ[i] + j + 1));
 		}
 		free(tmp);
 		i++;
@@ -45,7 +46,7 @@ char	*get_path(char *cmd, char **envp)
 	char	*trial_path;
 	int		i;
 
-	cmd_path = ft_split(get_env(envp), ':');
+	cmd_path = ft_split(get_env(envp, "PATH"), ':');
 	path_to_cmd = ft_strjoin("/", cmd);
 	i = 0;
 	while (cmd_path && path_to_cmd && cmd_path[i])
@@ -60,10 +61,8 @@ char	*get_path(char *cmd, char **envp)
 		free(trial_path);
 		i++;
 	}
-	if (!cmd_path)
-		free_array(cmd_path);
-	if (!path_to_cmd)
-		free(cmd_path);
+	free_array(cmd_path);
+	free(cmd_path);
 	return (NULL);
 }
 

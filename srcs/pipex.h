@@ -6,14 +6,14 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:20:05 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/23 11:54:00 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 17:27:09 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/include/ft_printf.h"
+# include "../libft/include/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>

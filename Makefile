@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+         #
+#    By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 16:57:44 by aweizman          #+#    #+#              #
-#    Updated: 2024/01/25 17:03:33 by aweizman         ###   ########.fr        #
+#    Updated: 2024/04/27 18:49:19 by antonweizma      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,18 +18,19 @@ LIBFT		= ./libft
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 
-HEADERS		= -I./pipex.h -I$(LIBFT)/include/ft_printf.h
+HEADERS		= -I./srcs/pipex.h -I$(LIBFT)/include/ft_printf.h
 
 SRCS		= main utils fork
 
 SRCS_BONUS 	= main_bonus utils_bonus fork_bonus
 
 OBJ_DIR		= obj/
-SRC			= 	$(addsuffix .c, $(SRCS))
+SRC_DIR		= srcs/
+SRC			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRCS)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS)))
-SRC_BONUS	= 	$(addsuffix .c, $(SRCS_BONUS))
+SRC_BONUS	= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRCS_BONUS)))
 OBJ_BONUS 	= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRCS_BONUS)))
 OBJ_CHECK	=	.cache_exists
 

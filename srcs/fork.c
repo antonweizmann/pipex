@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/23 12:33:26 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/27 18:49:39 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	initiate_child(t_args *args, int *fd, int *pre_fd)
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-	close_pipes(pre_fd);
-	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
+	close_pipes(pre_fd);
+	close_pipes(fd);
 	exec(args->argv[2 + args->here_doc]);
 }
 
@@ -81,6 +80,8 @@ void	start_pipe(int *pre_fd, t_args *args, int commands)
 	fork_tree(pre_fd, args, commands, &status);
 	free(args);
 	// ft_putnbr_fd(status, 2);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
 	exit(status);
 }
 
@@ -89,11 +90,11 @@ void	fork_tree(int *pre_fd, t_args *args, int commands, int *status)
 	int		fd[2];
 	int		pid;
 
+	if (pipe(fd) == -1)
+		perror("Pipe");
 	pid = fork();
 	if (pid == -1)
 		perror("Fork");
-	if (pipe(fd) == -1)
-		perror("Pipe");
 	if (!pid && commands < args->argc - 3 - args->here_doc)
 	{
 		if (commands == 1)
