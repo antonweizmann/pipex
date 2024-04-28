@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/27 20:21:57 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/28 12:37:27 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	initiate_child(t_args *args, int *fd, int *pre_fd)
 		file = open(args->argv[1], O_RDONLY, 0666);
 		if (file == -1)
 		{
-			perror("Infile");
+			ft_putstr_fd("no such file or directory: ", 2);
+			ft_putendl_fd(args->argv[1], 2);
+			exit(1);
 		}
 		dup2(file, STDIN_FILENO);
 		close(file);
@@ -45,7 +47,7 @@ void	child(t_args *args, int *pre_fd, int *fd, int cmd)
 	dup2(fd[1], STDOUT_FILENO);
 	close_pipes(pre_fd);
 	close_pipes(fd);
-	exec(args->argv[args->argc - 1 - cmd], args);
+	exec(args->argv[1 + cmd + args->here_doc], args);
 }
 
 void	parent(t_args *args, int *pre_fd, int *fd)
@@ -104,6 +106,8 @@ void	fork_tree(int *pre_fd, t_args *args, int commands, int *status)
 	{
 		close_pipes(pre_fd);
 		fork_tree(fd, args, commands + 1, status);
+		waitpid(pid, NULL, 0);
+		return ;
 	}
 	else if (!pid && commands == args->argc - 3 - args->here_doc)
 		parent(args, pre_fd, fd);

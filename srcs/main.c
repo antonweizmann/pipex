@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/27 20:26:27 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/28 12:08:44 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,25 @@ void	exec(char *cmd, t_args *args)
 	extern char	**environ;
 
 	cmd_arg = ft_split(cmd, ' ');
+	if (ft_strchr(*cmd_arg, '/') || !ft_strncmp(*cmd_arg, "~", 2) \
+		|| !ft_strncmp(*cmd_arg, ".", 2) || !ft_strncmp(*cmd_arg, "..", 3))
+	{
+		execve(*cmd_arg, cmd_arg, environ);
+		ft_putstr_fd("no such file or directory: ", 2);
+		ft_putendl_fd(cmd_arg[0], 2);
+		free_array(cmd_arg);
+		free(args);
+		exit(2);
+	}
 	cmd_path = get_path(cmd_arg[0], environ);
 	if (cmd_path)
 		execve(cmd_path, cmd_arg, environ);
-	perror("Command not found\n");
+	ft_putstr_fd("command not found: ", 2);
+	ft_putendl_fd(cmd_arg[0], 2);
 	free_array(cmd_arg);
 	free(cmd_path);
 	free(args);
-	exit(1);
+	exit(127);
 }
 
 void	here_doc(t_args *args)
@@ -47,6 +58,7 @@ void	here_doc(t_args *args)
 		perror("Pipe");
 	while (1)
 	{
+		ft_putstr_fd("> ", 1);
 		str = get_next_line(STDIN_FILENO);
 		if (str && *str)
 		{

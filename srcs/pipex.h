@@ -6,7 +6,7 @@
 /*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:20:05 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/27 20:18:04 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/28 12:45:13 by antonweizma      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ void	parent(t_args *args, int *fd, int *pre_fd);
 void	child(t_args *args, int *fd, int *pre_fd, int cmd);
 void	initiate_child(t_args *args, int *pre_fd, int *fd);
 void	close_pipes(int *fd);
+
+// https://github.com/ael-bekk/PIPEX_TESTER
 #endif
