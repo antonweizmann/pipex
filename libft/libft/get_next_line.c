@@ -6,105 +6,114 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:08:09 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/29 14:15:31 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:28:39 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	get_line_len(char *line)
+#include "libft.h"
+#include <unistd.h>
+#include <stdlib.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+#endif
+
+int	get_char_count(char *str, int len)
 {
 	int	i;
 
 	i = 0;
-	while (line[i] != '\n' && line[i])
-		i++;
-	return (i);
-}
-
-char	*new_line(char *line, int bytes_read)
-{
-	char	*new_line;
-	char	*tmp;
-
-	if (!line[bytes_read])
+	while (i < len && str[i])
 	{
-		free (line);
-		return (NULL);
-	}
-	new_line = ft_calloc((ft_strlen(line) - bytes_read + 1), sizeof(char));
-	bytes_read++;
-	tmp = new_line;
-	while (line[bytes_read])
-		*new_line++ = line[bytes_read++];
-	free (line);
-	return (tmp);
-}
-
-char	*get_result(char *line, int bytes_read)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (!*line)
-		return (NULL);
-	tmp = ft_calloc(bytes_read + 2, sizeof(char));
-	while (line[i] != '\n' && line[i])
-	{
-		tmp[i] = line[i];
+		if (str[i] == '\n')
+			return (i + 1);
 		i++;
 	}
-	if (line[i] == '\n' && line[i])
-		tmp[i] = '\n';
-	return (tmp);
+	return (len);
 }
 
-char	*read_line(int *pos, int fd, char *line)
+int	fill_stat_buf(char *stat, char *buf, int len)
 {
-	char	*buffer;
-	char	*tmp;
+	*stat = '\0';
+	if (len)
+		ft_memcpy(stat, buf, len);
+	stat[len] = '\0';
+	return (1);
+}
 
+char	*handle_stat(char *temp, char *stat)
+{
+	int		cpy_count;
+	char	*line;
+
+	line = NULL;
+	cpy_count = get_char_count(temp, ft_strlen(temp));
+	line = malloc(cpy_count + 1);
 	if (!line)
-		line = ft_calloc(1, sizeof(char));
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	while (*pos > 0)
 	{
-		*pos = read(fd, buffer, BUFFER_SIZE);
-		if (*pos == -1)
-		{
-			return (free(buffer), NULL);
-		}
-		buffer[*pos] = '\0';
-		tmp = ft_strjoin(line, buffer);
-		free (line);
-		line = tmp;
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		*stat = '\0';
+		return (NULL);
 	}
-	free (buffer);
+	line[cpy_count] = '\0';
+	ft_memcpy(line, temp, cpy_count);
+	if (!fill_stat_buf(stat, temp + cpy_count, ft_strlen(temp) - cpy_count))
+	{
+		free (line);
+		return (NULL);
+	}
 	return (line);
 }
 
+// recursivly read from fd and store in buf
+char	*recursive(char *line, int fd, int i, char *stat)
+{
+	char	buf_tmp[BUFFER_SIZE];
+	int		offset;
+	int		r_out;
+	int		cp;
+
+	offset = BUFFER_SIZE * i;
+	offset += ft_strlen(stat);
+	r_out = read(fd, &buf_tmp, BUFFER_SIZE);
+	if (r_out == -1)
+		return (NULL);
+	cp = get_char_count(buf_tmp, r_out);
+	if (cp == BUFFER_SIZE && !ft_memchr(buf_tmp, '\n', BUFFER_SIZE))
+		line = recursive(line, fd, ++i, stat);
+	else
+	{
+		if (!fill_stat_buf(stat, buf_tmp + cp, r_out - cp) || offset + cp == 0)
+			return (NULL);
+		line = ft_calloc(offset + cp + 1, 1);
+	}
+	if (line)
+		ft_memcpy(line + offset, buf_tmp, cp);
+	return (line);
+}
+
+//read line from fd
 char	*get_next_line(int fd)
 {
-	static char	*line;
-	char		*res;
-	int			bytes_read;
-	int			pos;
+	char				*line;
+	static char			stat[10240][BUFFER_SIZE + 1];
+	char				temp[BUFFER_SIZE + 1];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	line = NULL;
+	*temp = '\0';
+	if (BUFFER_SIZE < 1)
+		return (NULL);
+	if (*(stat[fd]))
 	{
-		free(line);
-		line = NULL;
-		return (NULL);
+		ft_strlcpy(temp, stat[fd], BUFFER_SIZE + 1);
+		if (ft_memchr(temp, '\n', ft_strlen(temp)))
+			return (handle_stat(temp, stat[fd]));
 	}
-	pos = 1;
-	line = read_line(&pos, fd, line);
-	if (!line)
-		return (NULL);
-	bytes_read = get_line_len(line);
-	res = get_result(line, bytes_read);
-	line = new_line(line, bytes_read);
-	return (res);
+	line = recursive(line, fd, 0, stat[fd]);
+	if (line)
+		ft_memcpy(line, temp, ft_strlen(temp));
+	else
+		*(stat[fd]) = '\0';
+	return (line);
 }

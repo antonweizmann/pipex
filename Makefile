@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+         #
+#    By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 16:57:44 by aweizman          #+#    #+#              #
-#    Updated: 2024/04/28 12:18:04 by antonweizma      ###   ########.fr        #
+#    Updated: 2024/04/29 15:36:48 by aweizman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT		= ./libft
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror
 
 HEADERS		= -I./srcs/ -I$(LIBFT)/include/
 

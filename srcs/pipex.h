@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:20:05 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/28 12:45:13 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 15:29:32 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
