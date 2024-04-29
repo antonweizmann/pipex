@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:08:09 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/23 10:17:55 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 14:15:31 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

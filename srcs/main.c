@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:27:38 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/28 12:08:44 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 14:04:08 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	here_doc(t_args *args)
 			free(str);
 		}
 	}
+	free(str);
 	close(args->here_doc_pipe[1]);
 }
 

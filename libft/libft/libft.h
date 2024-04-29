@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:53 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/27 20:17:16 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 13:55:36 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdint.h>
+
 typedef struct s_sort
 {
 	int				size;

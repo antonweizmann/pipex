@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:15:13 by aweizman          #+#    #+#             */
-/*   Updated: 2024/04/28 12:37:27 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 13:59:38 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	parent(t_args *args, int *pre_fd, int *fd)
 				O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (file == -1)
 	{
-		perror("Outfile");
+		ft_putstr_fd("no such file or directory: ", 2);
+		ft_putendl_fd(args->argv[1], 2);
+		exit(1);
 	}
 	dup2(pre_fd[0], STDIN_FILENO);
 	dup2(file, STDOUT_FILENO);
@@ -79,7 +81,6 @@ void	start_pipe(int *pre_fd, t_args *args, int commands)
 	status = 0;
 	fork_tree(pre_fd, args, commands, &status);
 	free(args);
-	// ft_putnbr_fd(status, 2);
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	exit(status);
@@ -95,13 +96,10 @@ void	fork_tree(int *pre_fd, t_args *args, int commands, int *status)
 	pid = fork();
 	if (pid == -1)
 		perror("Fork");
-	if (!pid && commands < args->argc - 3 - args->here_doc)
-	{
-		if (commands == 1)
-			initiate_child(args, fd, pre_fd);
-		else
-			child(args, pre_fd, fd, commands);
-	}
+	if (!pid && commands == 1)
+		initiate_child(args, fd, pre_fd);
+	else if (!pid && commands < args->argc - 3 - args->here_doc)
+		child(args, pre_fd, fd, commands);
 	else if (pid && commands < args->argc - 3 - args->here_doc)
 	{
 		close_pipes(pre_fd);

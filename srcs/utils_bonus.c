@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antonweizmann <antonweizmann@student.42    +#+  +:+       +#+        */
+/*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:19:40 by antonweizma       #+#    #+#             */
-/*   Updated: 2024/04/27 20:08:28 by antonweizma      ###   ########.fr       */
+/*   Updated: 2024/04/29 13:57:51 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ char	*get_path(char *cmd, char **envp)
 		i++;
 	}
 	free_array(cmd_path);
-	free(path_to_cmd);
-	return (NULL);
+	return (free(path_to_cmd), NULL);
 }
 
 void	error_msg(char *err, t_args *args)

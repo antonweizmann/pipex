@@ -6,7 +6,7 @@
 /*   By: aweizman <aweizman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:08:50 by aweizman          #+#    #+#             */
-/*   Updated: 2023/11/02 12:04:06 by aweizman         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:09:22 by aweizman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
+# include "libft.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 32
 # endif
 
 char	*get_next_line(int fd);
